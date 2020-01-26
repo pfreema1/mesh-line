@@ -14,6 +14,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass.js';
 import { debounce } from '../utils/debounce';
+import Lines from '../Lines';
 
 export default class WebGLView {
   constructor(app) {
@@ -30,13 +31,19 @@ export default class WebGLView {
     this.initBgScene();
     this.initLights();
     this.initTweakPane();
-    await this.loadTestMesh();
+    // await this.loadTestMesh();
     this.setupTextCanvas();
     this.initMouseMoveListen();
     this.initMouseCanvas();
+    this.initLines();
     this.initRenderTri();
     this.initPostProcessing();
     this.initResizeHandler();
+  }
+
+
+  initLines() {
+    this.lines = new Lines(this.bgScene);
   }
 
   initResizeHandler() {
@@ -81,22 +88,22 @@ export default class WebGLView {
 
     this.composer.addPass(new RenderPass(this.scene, this.camera));
 
-    const bloomPass = new BloomPass(
-      1, // strength
-      25, // kernel size
-      4, // sigma ?
-      256 // blur render target resolution
-    );
-    this.composer.addPass(bloomPass);
+    // const bloomPass = new BloomPass(
+    //   1, // strength
+    //   25, // kernel size
+    //   4, // sigma ?
+    //   256 // blur render target resolution
+    // );
+    // this.composer.addPass(bloomPass);
 
-    const filmPass = new FilmPass(
-      0.35, // noise intensity
-      0.025, // scanline intensity
-      648, // scanline count
-      false // grayscale
-    );
-    filmPass.renderToScreen = true;
-    this.composer.addPass(filmPass);
+    // const filmPass = new FilmPass(
+    //   0.35, // noise intensity
+    //   0.025, // scanline intensity
+    //   648, // scanline count
+    //   false // grayscale
+    // );
+    // filmPass.renderToScreen = true;
+    // this.composer.addPass(filmPass);
   }
 
   initTweakPane() {
@@ -107,7 +114,7 @@ export default class WebGLView {
         min: 0.0,
         max: 0.5
       })
-      .on('change', value => {});
+      .on('change', value => { });
   }
 
   initMouseCanvas() {
@@ -261,6 +268,10 @@ export default class WebGLView {
 
     if (this.textCanvas) {
       this.updateTextCanvas(time);
+    }
+
+    if (this.lines) {
+      this.lines.update();
     }
 
     if (this.trackball) this.trackball.update();
