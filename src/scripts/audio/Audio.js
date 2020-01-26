@@ -3,16 +3,25 @@
 */
 
 import * as Tone from "tone";
+import Triggers from './Triggers';
 
 export default class Audio {
     constructor(webGLView) {
         this.webGLView = webGLView;
+        this.numRows = 3;
+        this.beatSubdivision = 16;
+
         this.init();
     }
 
     async init() {
         this.userGestureFix();
         this.initTone();
+        this.initTriggers();
+    }
+
+    initTriggers() {
+        this.triggers = new Triggers(this.numRows, this.beatSubdivision);
     }
 
     initSynths() {
