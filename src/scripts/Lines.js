@@ -17,6 +17,15 @@ export default class RenderTri {
 
     }
 
+    triggerSpin() {
+        TweenMax.fromTo(this.speedMult, 1.0, {
+            value: 8.0,
+            ease: Power4.easeOut
+        }, {
+            value: 1.0
+        })
+    }
+
     setupKeys() {
         this.speedMult = {
             value: 1.0
@@ -25,12 +34,7 @@ export default class RenderTri {
         document.addEventListener('keydown', (e) => {
             if (e.keyCode == 32) {
                 // left
-                TweenMax.fromTo(this.speedMult, 1.0, {
-                    value: 8.0,
-                    ease: Power4.easeOut
-                }, {
-                    value: 1.0
-                })
+
             } else if (e.keyCode == 38) {
                 // up
                 console.log('positive z');

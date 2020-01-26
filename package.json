@@ -30,6 +30,7 @@
     "three-gltf-loader": "^1.110.0",
     "three-orbitcontrols": "^2.110.1",
     "three.meshline": "^1.2.0",
+    "tone": "^13.8.25",
     "tweakpane": "^1.1.0"
   },
   "devDependencies": {

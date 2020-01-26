@@ -1,4 +1,5 @@
 import WebGLView from './webgl/WebGLView';
+import Audio from './audio/Audio';
 
 export default class App {
 
@@ -8,9 +9,14 @@ export default class App {
 
 	init() {
 		this.initWebGL();
+		this.initAudio();
 		this.addListeners();
 		this.animate();
 		this.resize();
+	}
+
+	initAudio() {
+		this.audio = new Audio(this.webgl);
 	}
 
 	initWebGL() {
