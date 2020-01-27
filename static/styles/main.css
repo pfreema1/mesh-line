@@ -16,7 +16,7 @@ body {
 	align-items: center;
 
 	background-color: white;
-	z-index: 900;
+	z-index: 910;
 
 	padding: 30px;
 }
@@ -60,4 +60,24 @@ body {
 	border-radius: 3px;
 
 	border: 1px solid red;
+
+	transition: all 0.35s;
+}
+
+.is-on {
+	background-color: yellow;
+}
+
+#clear {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+
+	background-color: white;
+	color: black;
+	font-family: sans-serif;
+
+	padding: 20px;
+
+	z-index: 910;
 }

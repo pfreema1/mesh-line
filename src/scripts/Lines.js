@@ -13,8 +13,25 @@ export default class RenderTri {
     async init() {
         await this.loadTexture();
         this.createLines();
+        this.setupAnimTriggers();
         this.setupKeys();
 
+    }
+
+    setupAnimTriggers() {
+        this.speedMult = {
+            value: 1.0
+        };
+
+
+    }
+
+    triggerBgTween() {
+        TweenMax.fromTo(document.body.style, 0.5, {
+            'backgroundColor': '#541B95'
+        }, {
+            'backgroundColor': '#181329'
+        })
     }
 
     triggerSpin() {
@@ -27,9 +44,7 @@ export default class RenderTri {
     }
 
     setupKeys() {
-        this.speedMult = {
-            value: 1.0
-        };
+
 
         document.addEventListener('keydown', (e) => {
             if (e.keyCode == 32) {

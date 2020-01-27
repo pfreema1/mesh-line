@@ -18,6 +18,35 @@ export default class Triggers {
         }
     }
 
+    handleTriggerClick(e) {
+        e.target.data.isTriggered = !e.target.data.isTriggered;
+
+        if (e.target.data.isTriggered) {
+            e.target.classList.add('is-on');
+        } else {
+            e.target.classList.remove('is-on');
+        }
+
+        console.log(e.target.data);
+    }
+
+    setupClearClickHandler() {
+        document.querySelector('#clear').addEventListener('click', e => {
+            this.clearAllTriggers();
+        });
+    }
+
+    clearAllTriggers() {
+        console.log('clearing all triggers!');
+
+        for (let i = 0; i < this.rows.length; i++) {
+            for (let j = 0; j < this.rows[i].triggers.length; j++) {
+                this.rows[i].triggers[j].data.isTriggered = false;
+                this.rows[i].triggers[j].classList.remove('is-on');
+            }
+        }
+    }
+
     createTriggers() {
         // create triggers
         for (let i = 0; i < this.numRows * this.beatSubdivision; i++) {
@@ -26,8 +55,11 @@ export default class Triggers {
             triggerEl.classList.add('trigger');
             triggerEl.data = {
                 row: rowIndex,
-                beat: i % this.beatSubdivision
+                beat: i % this.beatSubdivision,
+                isTriggered: false
             };
+
+            triggerEl.addEventListener('click', this.handleTriggerClick);
 
             // append trigger to rowEl array
             this.rows[rowIndex].triggers.push(triggerEl);
@@ -54,6 +86,8 @@ export default class Triggers {
         this.addRowsToContainer();
 
         this.appendTriggersToDOM();
+
+        this.setupClearClickHandler();
     }
 
     appendTriggersToDOM() {

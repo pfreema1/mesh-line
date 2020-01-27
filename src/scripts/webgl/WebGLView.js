@@ -39,6 +39,19 @@ export default class WebGLView {
     this.initRenderTri();
     this.initPostProcessing();
     this.initResizeHandler();
+
+    this.initAudioAnimationHooks();
+  }
+
+  initAudioAnimationHooks() {
+    this.animHooks = [
+      // row 0
+      null,
+      // row 1
+      this.lines.triggerBgTween.bind(this.lines),
+      // row 2
+      this.lines.triggerSpin.bind(this.lines)
+    ];
   }
 
 
@@ -89,11 +102,12 @@ export default class WebGLView {
     this.composer.addPass(new RenderPass(this.scene, this.camera));
 
     // const bloomPass = new BloomPass(
-    //   1, // strength
+    //   2, // strength
     //   25, // kernel size
     //   4, // sigma ?
     //   256 // blur render target resolution
     // );
+    // bloomPass.renderToScreen = true;
     // this.composer.addPass(bloomPass);
 
     // const filmPass = new FilmPass(
